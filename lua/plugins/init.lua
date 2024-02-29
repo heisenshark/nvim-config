@@ -228,7 +228,10 @@ local default_plugins = {
       end
     end,
   },
-
+  {
+    "ThePrimeagen/vim-be-good",
+    lazy = false,
+  },
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
