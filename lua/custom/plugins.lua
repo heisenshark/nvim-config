@@ -53,7 +53,10 @@ local plugins = {
       require "custom.configs.conform"
     end,
   },
-
+  {
+    "nvim-treesitter/nvim-treesitter-angular", 
+    lazy = false 
+  }
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",

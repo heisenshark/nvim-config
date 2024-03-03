@@ -232,6 +232,18 @@ local default_plugins = {
     "ThePrimeagen/vim-be-good",
     lazy = false,
   },
+
+  {
+    "glacambre/firenvim",
+
+    -- Lazy load firenvim
+    -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
+    lazy = false,
+    build = function()
+      vim.fn["firenvim#install"](0)
+    end,
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",

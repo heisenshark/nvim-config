@@ -4,7 +4,7 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require "lspconfig"
 
 -- if you just want default config for the servers then put them in a table
-local servers = { "html", "cssls", "tsserver", "clangd", "ocamllsp", "ruff_lsp",}
+local servers = { "html", "cssls", "tsserver", "clangd", "ocamllsp", "ruff_lsp", "angularls", "prisma_ls" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -64,10 +64,9 @@ end
 --   },
 -- }
 
-
 lspconfig.texlab.setup {
   cache_activate = true,
-  cache_filetypes = { "tex", "bib", "md", "markdown"},
+  cache_filetypes = { "tex", "bib", "md", "markdown" },
   cache_root = vim.fn.stdpath "cache",
   reverse_search_start_cmd = function()
     return true
@@ -77,7 +76,37 @@ lspconfig.texlab.setup {
     return true
   end,
   file_permission_mode = 438,
-  filetypes = {"markdown"},
+  filetypes = { "markdown" },
+}
+
+lspconfig.emmet_language_server.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = { "emmet-language-server", "--stdio" },
+  filetypes = {
+    "css",
+    "eruby",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "less",
+    "sass",
+    "scss",
+    "svelte",
+    "pug",
+    "typescriptreact",
+    "vue",
+  },
+  init_options = {
+    html = {
+      options = {
+        -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+        ["bem.enabled"] = true,
+      },
+    },
+    showSuggestionsAsSnippets = false,
+  },
+  single_file_support = true,
 }
 --
 -- lspconfig.pyright.setup { blabla}
