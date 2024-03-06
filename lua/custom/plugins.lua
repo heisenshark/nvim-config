@@ -1,4 +1,4 @@
-local overrides = require("custom.configs.overrides")
+local overrides = require "custom.configs.overrides"
 
 ---@type NvPluginSpec[]
 local plugins = {
@@ -16,7 +16,7 @@ local plugins = {
   -- override plugin configs
   {
     "williamboman/mason.nvim",
-    opts = overrides.mason
+    opts = overrides.mason,
   },
 
   {
@@ -32,9 +32,7 @@ local plugins = {
   {
     "xiyaowong/transparent.nvim",
     lazy = false,
-    extra_groups = {
-      
-    },
+    extra_groups = {},
   },
   -- Install a plugin
   {
@@ -54,9 +52,28 @@ local plugins = {
     end,
   },
   {
-    "nvim-treesitter/nvim-treesitter-angular", 
-    lazy = false 
-  }
+    "nvim-treesitter/nvim-treesitter-angular",
+    lazy = false,
+  },
+  {
+    "smoka7/multicursors.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "smoka7/hydra.nvim",
+    },
+    opts = {},
+    cmd = { "MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor" },
+    keys = {
+      {
+        mode = { "v", "n" },
+        "<Leader>m",
+        "<cmd>MCstart<cr>",
+        desc = "Create a selection for selected text or word under the cursor",
+      },
+    },
+    lazy = false,
+  },
+
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
