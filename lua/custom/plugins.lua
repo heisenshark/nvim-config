@@ -34,6 +34,7 @@ local plugins = {
     lazy = false,
     extra_groups = {},
   },
+  {'akinsho/git-conflict.nvim', version = "*", config = true, lazy = false},
   -- Install a plugin
   {
     "max397574/better-escape.nvim",
