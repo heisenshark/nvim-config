@@ -48,12 +48,17 @@ local plugins = {
     "stevearc/conform.nvim",
     --  for users those who want auto-save conform + lazyloading!
     -- event = "BufWritePre"
+    lazy = false,
     config = function()
       require "custom.configs.conform"
     end,
   },
   {
     "nvim-treesitter/nvim-treesitter-angular",
+    lazy = false,
+  },
+  {
+    "Hoffs/omnisharp-extended-lsp.nvim",
     lazy = false,
   },
   {

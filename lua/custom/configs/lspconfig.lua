@@ -110,3 +110,16 @@ lspconfig.emmet_language_server.setup {
 }
 --
 -- lspconfig.pyright.setup { blabla}
+--
+local pid = vim.fn.getpid()
+-- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
+local omnisharp_bin = "/home/sylay/.local/share/nvim/mason/packages/omnisharp/omnisharp"
+lspconfig["omnisharp"].setup{
+    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
+    handlers = {
+    ["textDocument/definition"] = require('omnisharp_extended').definition_handler,
+    ["textDocument/references"] = require('omnisharp_extended').references_handler,
+    ["textDocument/implementation"] = require('omnisharp_extended').implementation_handler,
+  },
+}
+
