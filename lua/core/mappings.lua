@@ -52,7 +52,6 @@ M.general = {
       end,
       "LSP formatting",
     },
-
   },
 
   t = {
@@ -464,6 +463,10 @@ M.gitsigns = {
       "Toggle deleted",
     },
   },
+}
+
+M.rustceanvim = {
+
 }
 
 return M

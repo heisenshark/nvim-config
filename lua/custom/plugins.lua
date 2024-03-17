@@ -34,7 +34,7 @@ local plugins = {
     lazy = false,
     extra_groups = {},
   },
-  {'akinsho/git-conflict.nvim', version = "*", config = true, lazy = false},
+  { "akinsho/git-conflict.nvim", version = "*", config = true, lazy = false },
   -- Install a plugin
   {
     "max397574/better-escape.nvim",
@@ -79,7 +79,13 @@ local plugins = {
     },
     lazy = false,
   },
-
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^4", -- Recommended
+    ft = { "rust" },
+    lazy = false,
+    enabled = false,
+  },
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",

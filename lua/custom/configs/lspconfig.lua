@@ -5,7 +5,7 @@ local lspconfig = require "lspconfig"
 
 -- if you just want default config for the servers then put them in a table
 local servers =
-  { "html", "cssls", "tsserver", "clangd", "ocamllsp", "ruff_lsp", "angularls", "pyright", "gopls"}
+  { "html", "cssls", "tsserver", "clangd", "ocamllsp", "ruff_lsp", "angularls", "pyright", "gopls","rust_analyzer"}
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -124,17 +124,17 @@ lspconfig["omnisharp"].setup {
   },
 }
 
-lspconfig["rust_analyzer"].setup {
-  rust_analyzer = {
-    settings = {
-      ["rust-analyzer"] = {
-        procMacro = { enable = true },
-        cargo = { allFeatures = true },
-        checkOnSave = {
-          command = "clippy",
-          extraArgs = { "--no-deps" },
-        },
-      },
-    },
-  },
-}
+-- lspconfig["rust_analyzer"].setup {
+--   rust_analyzer = {
+--     settings = {
+--       ["rust-analyzer"] = {
+--         procMacro = { enable = true },
+--         cargo = { allFeatures = true },
+--         checkOnSave = {
+--           command = "clippy",
+--           extraArgs = { "--no-deps" },
+--         },
+--       },
+--     },
+--   },
+-- }
