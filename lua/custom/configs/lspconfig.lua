@@ -4,7 +4,8 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require "lspconfig"
 
 -- if you just want default config for the servers then put them in a table
-local servers = { "html", "cssls", "tsserver", "clangd", "ocamllsp", "ruff_lsp", "angularls", "pyright","gopls"}
+local servers =
+  { "html", "cssls", "tsserver", "clangd", "ocamllsp", "ruff_lsp", "angularls", "pyright", "gopls"}
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -114,12 +115,26 @@ lspconfig.emmet_language_server.setup {
 local pid = vim.fn.getpid()
 -- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
 local omnisharp_bin = "/home/sylay/.local/share/nvim/mason/packages/omnisharp/omnisharp"
-lspconfig["omnisharp"].setup{
-    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
-    handlers = {
-    ["textDocument/definition"] = require('omnisharp_extended').definition_handler,
-    ["textDocument/references"] = require('omnisharp_extended').references_handler,
-    ["textDocument/implementation"] = require('omnisharp_extended').implementation_handler,
+lspconfig["omnisharp"].setup {
+  cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
+  handlers = {
+    ["textDocument/definition"] = require("omnisharp_extended").definition_handler,
+    ["textDocument/references"] = require("omnisharp_extended").references_handler,
+    ["textDocument/implementation"] = require("omnisharp_extended").implementation_handler,
   },
 }
 
+lspconfig["rust_analyzer"].setup {
+  rust_analyzer = {
+    settings = {
+      ["rust-analyzer"] = {
+        procMacro = { enable = true },
+        cargo = { allFeatures = true },
+        checkOnSave = {
+          command = "clippy",
+          extraArgs = { "--no-deps" },
+        },
+      },
+    },
+  },
+}
