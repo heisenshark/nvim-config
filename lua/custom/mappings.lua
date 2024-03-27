@@ -3,8 +3,6 @@ local M = {}
 
 M.general = {
   n = {
-    -- [";"] = { ":", "enter command mode", opts = { nowait = true } },
-
     --  format with conform
     ["<leader>fm"] = {
       function()
@@ -12,19 +10,21 @@ M.general = {
       end,
       "formatting",
     },
-    ["<A-j>"] = { "ddp" },
-    ["<A-k>"] = { "ddkP" },
+    -- moving lines config
+    ["<A-j>"] = { ":m +1<CR>" },
+    ["<A-k>"] = { ":m -2<CR>" },
   },
   v = {
-    ["<A-k>"] = { "dkPV`[`]" },
-    ["<A-j>"] = { "dpV`[`]" },
+    -- moving multiple lines config
+    ["<A-j>"] = { ":m '>+1<CR>gv" },
+    ["<A-k>"] = { ":m '<-2<CR>gv" },
     -- ["gM"] = {":lua print(vim.api.nvim_get_mode()['mode'])"},
     ["gM"] = { function()
       print(vim.api.nvim_get_mode()['mode'])
-      return "10j"
+      vim.api.nvim_input("10j")
+      -- return "10j"
     end },
     [">"] = { ">gv", "indent" },
   },
 }
-
 return M

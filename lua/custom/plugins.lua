@@ -86,6 +86,11 @@ local plugins = {
     lazy = false,
     enabled = false,
   },
+  {
+    "sindrets/diffview.nvim",
+    lazy=true,
+    cmd ={"DiffviewOpen"}
+  }
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
