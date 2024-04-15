@@ -90,7 +90,19 @@ local plugins = {
     "sindrets/diffview.nvim",
     lazy=true,
     cmd ={"DiffviewOpen"}
-  }
+  },
+  {
+    "alec-gibson/nvim-tetris",
+    lazy=false,
+  },
+  {
+    "elkowar/yuck.vim",
+    lazy=false,
+  },
+  {
+   "eraserhd/parinfer-rust",
+    lazy=false
+  },
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",

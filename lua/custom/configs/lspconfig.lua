@@ -114,7 +114,8 @@ lspconfig.emmet_language_server.setup {
 --
 local pid = vim.fn.getpid()
 -- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
-local omnisharp_bin = "/home/sylay/.local/share/nvim/mason/packages/omnisharp/omnisharp"
+local omnisharp_bin = vim.fn.expand("$HOME/.local/share/nvim/mason/packages/omnisharp/omnisharp")
+
 lspconfig["omnisharp"].setup {
   cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
   handlers = {
