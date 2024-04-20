@@ -1,4 +1,3 @@
-local overrides = require "custom.configs.overrides"
 
 ---@type NvPluginSpec[]
 local plugins = {
@@ -103,6 +102,126 @@ local plugins = {
    "eraserhd/parinfer-rust",
     lazy=false
   },
+  {
+      "vhyrro/luarocks.nvim",
+      priority = 1001, -- this plugin needs to run before anything else
+      opts = {
+          rocks = { "magick" },
+      },
+  },
+  {
+      "3rd/image.nvim",
+      dependencies = { "luarocks.nvim" },
+      config = function() 
+        require("image").setup({
+          backend = "kitty",
+          integrations = {
+            markdown = {
+              enabled = true,
+              clear_in_insert_mode = false,
+              download_remote_images = true,
+              only_render_image_at_cursor = false,
+              filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
+            },
+            neorg = {
+              enabled = true,
+              clear_in_insert_mode = false,
+              download_remote_images = true,
+              only_render_image_at_cursor = false,
+              filetypes = { "norg" },
+            },
+          },
+          max_width = nil,
+          max_height = nil,
+          max_width_window_percentage = nil,
+          max_height_window_percentage = 50,
+          window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
+          window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+          editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
+          tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
+          hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" }, -- render image files as images when opened
+        })
+      end,
+    lazy = false
+  },
+{
+  "nvimdev/dashboard-nvim",
+  event = "VimEnter",
+  opts = function()
+    local logo = [[
+         ██╗      █████╗ ███████╗██╗   ██╗██╗   ██╗██╗███╗   ███╗          Z
+         ██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝██║   ██║██║████╗ ████║      Z    
+         ██║     ███████║  ███╔╝  ╚████╔╝ ██║   ██║██║██╔████╔██║   z       
+         ██║     ██╔══██║ ███╔╝    ╚██╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║ z         
+         ███████╗██║  ██║███████╗   ██║    ╚████╔╝ ██║██║ ╚═╝ ██║           
+         ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝           
+    ]]
+
+    logo = string.rep("\n", 8+6) .. "\n\n"
+
+    local api = require("image")
+    
+    local logo_path = vim.api.nvim_get_runtime_file("lua/startup/NeoVimLogo.png", false)[1]
+    img = api.from_file(logo_path,{
+    window = 1000,
+    buffer = vim.api.nvim_buf_get_number(0),
+    inline = false,
+    width = 40,
+    })
+    local opts = {
+      theme = "doom",
+      hide = {
+        statusline = true ,
+      },
+      config = {
+        header = vim.split(logo, "\n"),
+        center = {
+          -- { action = LazyVim.telescope("files"),                                    desc = " Find File",       icon = " ", key = "f" },
+          { action = "ene | startinsert",                                        desc = " New File",        icon = " ", key = "n" },
+          { action = "Telescope oldfiles",                                       desc = " Recent Files",    icon = " ", key = "r" },
+          { action = "Telescope live_grep",                                      desc = " Find Text",       icon = " ", key = "g" },
+          { action = [[lua LazyVim.telescope.config_files()()]], desc = " Config",          icon = " ", key = "c" },
+          { action = 'lua require("persistence").load()',                        desc = " Restore Session", icon = " ", key = "s" },
+          { action = "LazyExtras",                                               desc = " Lazy Extras",     icon = " ", key = "x" },
+          { action = "Lazy",                                                     desc = " Lazy",            icon = "󰒲 ", key = "l" },
+          { action = "qa",                                                       desc = " Quit",            icon = " ", key = "q" },
+        },
+        footer = function()
+          local stats = require("lazy").stats()
+          local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+          local dupa = vim.api.nvim_win_get_width(0)
+          img.buffer = vim.api.nvim_buf_get_number(0)
+          print(dupa)
+          img:clear()
+          img:render()
+          img:move(math.floor(dupa / 2)-20,2)
+          return { "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms" }
+        end,
+      },
+    }
+
+
+
+    for _, button in ipairs(opts.config.center) do
+      button.desc = button.desc .. string.rep(" ", 10 - #button.desc)
+      button.key_format = "  %s"
+    end
+
+    -- close Lazy and re-open when the dashboard is ready
+    if vim.o.filetype == "lazy" then
+      vim.cmd.close()
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "DashboardLoaded",
+        callback = function()
+          require("lazy").show()
+        end,
+      })
+    end
+        -- uv.run() --it will hold at this point until every timer have finished
+        return opts
+      end,
+        lazy= false,
+    }
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
