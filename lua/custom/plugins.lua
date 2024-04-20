@@ -1,3 +1,4 @@
+local overrides = require "custom.configs.overrides"
 
 ---@type NvPluginSpec[]
 local plugins = {
@@ -144,6 +145,16 @@ local plugins = {
       end,
     lazy = false
   },
+  -- {
+  --   "startup-nvim/startup.nvim",
+  --   requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
+  --   config = function()
+  --     require"startup".setup(require"startup.functions")
+  --   end,
+  --   lazy=false
+  -- }
+  --
+  --
 {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
