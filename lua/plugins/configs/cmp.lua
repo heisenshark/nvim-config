@@ -10,6 +10,8 @@ local field_arrangement = {
   atom_colored = { "kind", "abbr", "menu" },
 }
 
+
+
 local formatting_style = {
   -- default fields order i.e completion word + item.kind + item.kind icons
   fields = field_arrangement[cmp_style] or { "abbr", "kind", "menu" },
@@ -48,7 +50,6 @@ local options = {
   completion = {
     completeopt = "menu,menuone",
   },
-
   window = {
     completion = {
       side_padding = (cmp_style ~= "atom" and cmp_style ~= "atom_colored") and 1 or 0,
@@ -112,6 +113,18 @@ local options = {
     { name = "path" },
   },
 }
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+	callback = function(ev)
+		for _, client in pairs((vim.lsp.get_clients {})) do
+			if client.name == "tailwindcss" then
+				client.server_capabilities.completionProvider.triggerCharacters =
+					{ '"', "'", "`", ".", "(", "[", "!", "/", ":" }
+			end
+		end
+	end,
+})
 
 if cmp_style ~= "atom" and cmp_style ~= "atom_colored" then
   options.window.completion.border = border "CmpBorder"

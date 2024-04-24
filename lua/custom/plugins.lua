@@ -232,6 +232,12 @@ local plugins = {
         return opts
       end,
         lazy= false,
+    },
+    {
+    "windwp/nvim-ts-autotag",
+    event = "InsertEnter",
+    config = true,
+    lazy=false,
     }
   -- To make a plugin not be loaded
   -- {

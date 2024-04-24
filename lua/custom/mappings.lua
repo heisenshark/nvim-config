@@ -6,7 +6,7 @@ M.general = {
     --  format with conform
     ["<leader>fm"] = {
       function()
-        require("conform").format()
+        require("conform").format({async = true, lsp_fallback = true})
       end,
       "formatting",
     },

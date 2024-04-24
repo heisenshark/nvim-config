@@ -4,14 +4,16 @@ local options = {
 
 	formatters_by_ft = {
 		lua = { "stylua" },
-		javascript = { "prettier" },
-    typescript = {"prettier"},
+		javascript = { "biome" },
+    typescript = {"biome"},
+    typescriptreact = {"biome"},
+    javascriptreact = {"biome"},
 		css = { "prettier" },
 		html = { "prettier" },
 
 		sh = { "shfmt" },
     ocaml = {"ocamlformat"},
-    python = {"ruff"},
+    python = {"ruff","pyright"},
     csharp = {"ast-grep","csharpier","clangformat"},
     ["c#"] = {"ast-grep","csharpier","clangformat"},
     ["cs"] = {"csharpier","clangformat"},

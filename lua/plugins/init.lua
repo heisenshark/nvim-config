@@ -133,7 +133,9 @@ local default_plugins = {
       {
         -- snippet plugin
         "L3MON4D3/LuaSnip",
-        dependencies = "rafamadriz/friendly-snippets",
+        dependencies = {
+         "rafamadriz/friendly-snippets",
+        },
         opts = { history = true, updateevents = "TextChanged,TextChangedI" },
         config = function(_, opts)
           require("plugins.configs.others").luasnip(opts)
@@ -158,6 +160,7 @@ local default_plugins = {
 
       -- cmp sources plugins
       {
+        "mlaursen/vim-react-snippets",
         "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-nvim-lua",
         "hrsh7th/cmp-nvim-lsp",
@@ -166,6 +169,7 @@ local default_plugins = {
       },
     },
     opts = function()
+      require("vim-react-snippets").lazy_load()
       return require "plugins.configs.cmp"
     end,
     config = function(_, opts)

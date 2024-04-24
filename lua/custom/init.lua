@@ -6,3 +6,5 @@
 --   command = "tabdo wincmd =",
 -- 
 -- })
+
+-- require('nvim-ts-autotag').setup()
