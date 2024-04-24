@@ -72,11 +72,55 @@ local plugins = {
     keys = {
       {
         mode = { "v", "n" },
-        "<Leader>m",
+        "<Leader>mm",
         "<cmd>MCstart<cr>",
         desc = "Create a selection for selected text or word under the cursor",
       },
     },
+    normal_keys = {
+      [","] = {
+        -- method = N.clear_others,
+        opts = { desc = "Clear others" },
+      },
+    },
+    config = function(_, opts)
+      local N = require "multicursors.normal_mode"
+      local I = require "multicursors.insert_mode"
+
+      require("multicursors").setup {
+        normal_keys = {
+          -- to change default lhs of key mapping change the key
+          ["<C-/>"] = {
+            method = function()
+              require("multicursors.utils").call_on_selections(function(selection)
+                vim.api.nvim_win_set_cursor(0, { selection.row + 1, selection.col + 1 })
+                local line_count = selection.end_row - selection.row + 1
+                vim.cmd("normal " .. line_count .. "gcc")
+              end)
+            end,
+            opts = { desc = "comment selections" },
+          },
+        },
+        insert_keys = {
+          ["<C-h>"] = {
+            method = I.Left_method,
+            opts = { desc = "move left" },
+          },
+          ["<C-l>"] = {
+            method = I.Right_method,
+            opts = { desc = "move right" },
+          },
+          ["<C-u>"] = {
+            method = I.C_Left,
+            opts = { desc = "move word left" },
+          },
+          ["<C-i>"] = {
+            method = I.C_Right,
+            opts = { desc = "move word right" },
+          },
+        },
+      }
+    end,
     lazy = false,
   },
   {
@@ -88,62 +132,62 @@ local plugins = {
   },
   {
     "sindrets/diffview.nvim",
-    lazy=true,
-    cmd ={"DiffviewOpen"}
+    lazy = true,
+    cmd = { "DiffviewOpen" },
   },
   {
     "alec-gibson/nvim-tetris",
-    lazy=false,
+    lazy = false,
   },
   {
     "elkowar/yuck.vim",
-    lazy=false,
+    lazy = false,
   },
   {
-   "eraserhd/parinfer-rust",
-    lazy=false
+    "eraserhd/parinfer-rust",
+    lazy = false,
   },
   {
-      "vhyrro/luarocks.nvim",
-      priority = 1001, -- this plugin needs to run before anything else
-      opts = {
-          rocks = { "magick" },
-      },
+    "vhyrro/luarocks.nvim",
+    priority = 1001, -- this plugin needs to run before anything else
+    opts = {
+      rocks = { "magick" },
+    },
   },
   {
-      "3rd/image.nvim",
-      dependencies = { "luarocks.nvim" },
-      config = function() 
-        require("image").setup({
-          backend = "kitty",
-          integrations = {
-            markdown = {
-              enabled = true,
-              clear_in_insert_mode = false,
-              download_remote_images = true,
-              only_render_image_at_cursor = false,
-              filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
-            },
-            neorg = {
-              enabled = true,
-              clear_in_insert_mode = false,
-              download_remote_images = true,
-              only_render_image_at_cursor = false,
-              filetypes = { "norg" },
-            },
+    "3rd/image.nvim",
+    dependencies = { "luarocks.nvim" },
+    config = function()
+      require("image").setup {
+        backend = "kitty",
+        integrations = {
+          markdown = {
+            enabled = true,
+            clear_in_insert_mode = false,
+            download_remote_images = true,
+            only_render_image_at_cursor = false,
+            filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
           },
-          max_width = nil,
-          max_height = nil,
-          max_width_window_percentage = nil,
-          max_height_window_percentage = 50,
-          window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
-          window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
-          editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
-          tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
-          hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" }, -- render image files as images when opened
-        })
-      end,
-    lazy = false
+          neorg = {
+            enabled = true,
+            clear_in_insert_mode = false,
+            download_remote_images = true,
+            only_render_image_at_cursor = false,
+            filetypes = { "norg" },
+          },
+        },
+        max_width = nil,
+        max_height = nil,
+        max_width_window_percentage = nil,
+        max_height_window_percentage = 50,
+        window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
+        window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+        editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
+        tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
+        hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" }, -- render image files as images when opened
+      }
+    end,
+    lazy = false,
   },
   -- {
   --   "startup-nvim/startup.nvim",
@@ -155,11 +199,11 @@ local plugins = {
   -- }
   --
   --
-{
-  "nvimdev/dashboard-nvim",
-  event = "VimEnter",
-  opts = function()
-    local logo = [[
+  {
+    "nvimdev/dashboard-nvim",
+    event = "VimEnter",
+    opts = function()
+      local logo = [[
          ██╗      █████╗ ███████╗██╗   ██╗██╗   ██╗██╗███╗   ███╗          Z
          ██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝██║   ██║██║████╗ ████║      Z    
          ██║     ███████║  ███╔╝  ╚████╔╝ ██║   ██║██║██╔████╔██║   z       
@@ -168,77 +212,115 @@ local plugins = {
          ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝           
     ]]
 
-    logo = string.rep("\n", 8+6) .. "\n\n"
+      logo = string.rep("\n", 8 + 6) .. "\n\n"
 
-    local api = require("image")
-    
-    local logo_path = vim.api.nvim_get_runtime_file("lua/startup/NeoVimLogo.png", false)[1]
-    img = api.from_file(logo_path,{
-    window = 1000,
-    buffer = vim.api.nvim_buf_get_number(0),
-    inline = false,
-    width = 40,
-    })
-    local opts = {
-      theme = "doom",
-      hide = {
-        statusline = true ,
-      },
-      config = {
-        header = vim.split(logo, "\n"),
-        center = {
-          -- { action = LazyVim.telescope("files"),                                    desc = " Find File",       icon = " ", key = "f" },
-          { action = "ene | startinsert",                                        desc = " New File",        icon = " ", key = "n" },
-          { action = "Telescope oldfiles",                                       desc = " Recent Files",    icon = " ", key = "r" },
-          { action = "Telescope live_grep",                                      desc = " Find Text",       icon = " ", key = "g" },
-          { action = [[lua LazyVim.telescope.config_files()()]], desc = " Config",          icon = " ", key = "c" },
-          { action = 'lua require("persistence").load()',                        desc = " Restore Session", icon = " ", key = "s" },
-          { action = "LazyExtras",                                               desc = " Lazy Extras",     icon = " ", key = "x" },
-          { action = "Lazy",                                                     desc = " Lazy",            icon = "󰒲 ", key = "l" },
-          { action = "qa",                                                       desc = " Quit",            icon = " ", key = "q" },
-        },
-        footer = function()
-          local stats = require("lazy").stats()
-          local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-          local dupa = vim.api.nvim_win_get_width(0)
-          img.buffer = vim.api.nvim_buf_get_number(0)
-          print(dupa)
-          img:clear()
-          img:render()
-          img:move(math.floor(dupa / 2)-20,2)
-          return { "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms" }
-        end,
-      },
-    }
+      local api = require "image"
 
-
-
-    for _, button in ipairs(opts.config.center) do
-      button.desc = button.desc .. string.rep(" ", 10 - #button.desc)
-      button.key_format = "  %s"
-    end
-
-    -- close Lazy and re-open when the dashboard is ready
-    if vim.o.filetype == "lazy" then
-      vim.cmd.close()
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "DashboardLoaded",
-        callback = function()
-          require("lazy").show()
-        end,
+      local logo_path = vim.api.nvim_get_runtime_file("lua/startup/NeoVimLogo.png", false)[1]
+      img = api.from_file(logo_path, {
+        window = 1000,
+        buffer = vim.api.nvim_buf_get_number(0),
+        inline = false,
+        width = 40,
       })
-    end
-        -- uv.run() --it will hold at this point until every timer have finished
-        return opts
-      end,
-        lazy= false,
-    },
-    {
+      local opts = {
+        theme = "doom",
+        hide = {
+          statusline = true,
+        },
+        config = {
+          header = vim.split(logo, "\n"),
+          center = {
+            -- { action = LazyVim.telescope("files"),                                    desc = " Find File",       icon = " ", key = "f" },
+            {
+              action = "ene | startinsert",
+              desc = " New File",
+              icon = " ",
+              key = "n",
+            },
+            {
+              action = "Telescope oldfiles",
+              desc = " Recent Files",
+              icon = " ",
+              key = "r",
+            },
+            {
+              action = "Telescope live_grep",
+              desc = " Find Text",
+              icon = " ",
+              key = "g",
+            },
+            {
+              action = [[lua LazyVim.telescope.config_files()()]],
+              desc = " Config",
+              icon = " ",
+              key = "c",
+            },
+            {
+              action = 'lua require("persistence").load()',
+              desc = " Restore Session",
+              icon = " ",
+              key = "s",
+            },
+            {
+              action = "LazyExtras",
+              desc = " Lazy Extras",
+              icon = " ",
+              key = "x",
+            },
+            {
+              action = "Lazy",
+              desc = " Lazy",
+              icon = "󰒲 ",
+              key = "l",
+            },
+            {
+              action = "qa",
+              desc = " Quit",
+              icon = " ",
+              key = "q",
+            },
+          },
+          footer = function()
+            local stats = require("lazy").stats()
+            local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+            local dupa = vim.api.nvim_win_get_width(0)
+            img.buffer = vim.api.nvim_buf_get_number(0)
+            print(dupa)
+            img:clear()
+            img:render()
+            img:move(math.floor(dupa / 2) - 20, 2)
+            return { "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms" }
+          end,
+        },
+      }
+
+      for _, button in ipairs(opts.config.center) do
+        button.desc = button.desc .. string.rep(" ", 10 - #button.desc)
+        button.key_format = "  %s"
+      end
+
+      -- close Lazy and re-open when the dashboard is ready
+      if vim.o.filetype == "lazy" then
+        vim.cmd.close()
+        vim.api.nvim_create_autocmd("User", {
+          pattern = "DashboardLoaded",
+          callback = function()
+            require("lazy").show()
+          end,
+        })
+      end
+      -- uv.run() --it will hold at this point until every timer have finished
+      return opts
+    end,
+    lazy = false,
+  },
+  {
     "windwp/nvim-ts-autotag",
     event = "InsertEnter",
     config = true,
-    lazy=false,
-    }
+    lazy = false,
+  },
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
