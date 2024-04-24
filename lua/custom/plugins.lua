@@ -86,7 +86,7 @@ local plugins = {
     config = function(_, opts)
       local N = require "multicursors.normal_mode"
       local I = require "multicursors.insert_mode"
-
+      local mcsel = require "multicursors.selections"
       require("multicursors").setup {
         normal_keys = {
           -- to change default lhs of key mapping change the key
@@ -111,11 +111,15 @@ local plugins = {
             opts = { desc = "move right" },
           },
           ["<C-u>"] = {
-            method = I.C_Left,
+            method = function ()
+              mcsel.move_by_motion("b")
+            end,
             opts = { desc = "move word left" },
           },
           ["<C-i>"] = {
-            method = I.C_Right,
+            method = function ()
+              mcsel.move_by_motion("E")
+            end,
             opts = { desc = "move word right" },
           },
         },
@@ -233,7 +237,7 @@ local plugins = {
           center = {
             -- { action = LazyVim.telescope("files"),                                    desc = " Find File",       icon = " ", key = "f" },
             {
-              action = "ene | startinsert",
+              action = "ene",
               desc = " New File",
               icon = " ",
               key = "n",
@@ -251,13 +255,25 @@ local plugins = {
               key = "g",
             },
             {
-              action = [[lua LazyVim.telescope.config_files()()]],
+              action = function ()
+                local function press_keys(keys)
+                    -- Użyj funkcji nvim_feedkeys do symulacji naciśnięcia klawiszy
+                    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, true, true), 'n', true)
+                end
+                vim.cmd("cd ~/.config/nvim/")
+                vim.cmd("NvimTreeOpen")
+                press_keys("<Tab><S-Tab>")
+                -- vim.api.nvim_eval("")
+              end,
               desc = " Config",
               icon = " ",
               key = "c",
             },
             {
-              action = 'lua require("persistence").load()',
+              action = function ()
+                require("persistence").load()
+                -- require("nvchad.statusline.default").run()
+              end,
               desc = " Restore Session",
               icon = " ",
               key = "s",
@@ -320,6 +336,14 @@ local plugins = {
     event = "InsertEnter",
     config = true,
     lazy = false,
+  },
+  {
+  "folke/persistence.nvim",
+  event = "BufReadPre", -- this will only start session saving when an actual file was opened
+  opts = {
+    options = {"buffers", "curdir", "tabpages", "winsize"},
+    -- add any custom options here
+  }
   },
   -- To make a plugin not be loaded
   -- {

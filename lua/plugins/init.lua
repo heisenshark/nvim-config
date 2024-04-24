@@ -82,7 +82,6 @@ local default_plugins = {
     end,
   },
 
-  -- git stuff
   {
     "lewis6991/gitsigns.nvim",
     event = "User FilePost",
@@ -198,7 +197,7 @@ local default_plugins = {
   -- file managing , picker etc
   {
     "nvim-tree/nvim-tree.lua",
-    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+    cmd = { "NvimTreeToggle", "NvimTreeFocus","NvimTreeOpen" },
     init = function()
       require("core.utils").load_mappings "nvimtree"
     end,
