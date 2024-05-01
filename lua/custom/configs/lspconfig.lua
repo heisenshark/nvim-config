@@ -4,8 +4,20 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require "lspconfig"
 
 -- if you just want default config for the servers then put them in a table
-local servers =
-  { "html", "cssls", "tsserver", "clangd", "ocamllsp", "angularls", "pyright", "gopls","rust_analyzer","sqlls","zls","tailwindcss"}
+local servers = {
+  "html",
+  "cssls",
+  -- "tsserver",
+  "clangd",
+  "ocamllsp",
+  "angularls",
+  "pyright",
+  "gopls",
+  "rust_analyzer",
+  "sqlls",
+  "zls",
+  "tailwindcss",
+}
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -114,7 +126,7 @@ lspconfig.emmet_language_server.setup {
 --
 local pid = vim.fn.getpid()
 -- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
-local omnisharp_bin = vim.fn.expand("$HOME/.local/share/nvim/mason/packages/omnisharp/omnisharp")
+local omnisharp_bin = vim.fn.expand "$HOME/.local/share/nvim/mason/packages/omnisharp/omnisharp"
 
 lspconfig["omnisharp"].setup {
   cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
@@ -125,6 +137,48 @@ lspconfig["omnisharp"].setup {
   },
 }
 
+-- lspconfig.eslint.setup {};
+
+lspconfig["biome"].setup {
+  cmd = { "biome", "lsp-proxy" },
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "typescript",
+    "typescript.tsx",
+    "typescriptreact",
+    "astro",
+    "svelte",
+    "vue",
+  },
+  root_dir = require("lspconfig.util").root_pattern("biome.json", "biome.jsonc"),
+  single_file_support = false,
+}
+
+local mason_registry = require('mason-registry')
+local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+
+lspconfig["tsserver"].setup {
+  filetypes = {"vue","typescript", "javascript","typescriptreact", "javascriptreact","angular","html"},
+    plugins = {
+      {
+        name = "@vue/typescript-plugin",
+        location = vue_language_server_path,
+        languages = {"javascript", "typescript", "vue"},
+      },
+    },
+}
+
+lspconfig["volar"].setup {
+  filetypes = {"vue", "typescript", "javascript"},
+  init_options = {
+    vue = {
+      hybridMode = false,
+    },
+  }
+}
 -- lspconfig["rust_analyzer"].setup {
 --   rust_analyzer = {
 --     settings = {

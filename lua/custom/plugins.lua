@@ -73,7 +73,7 @@ local plugins = {
       {
         mode = { "v", "n" },
         "<Leader>mm",
-        "<cmd>MCstart<cr>",
+        "<cmd>MCunderCursor<cr>",
         desc = "Create a selection for selected text or word under the cursor",
       },
     },
@@ -344,6 +344,17 @@ local plugins = {
     options = {"buffers", "curdir", "tabpages", "winsize"},
     -- add any custom options here
   }
+  },
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end,
+    lazy = false,
   },
   -- To make a plugin not be loaded
   -- {
