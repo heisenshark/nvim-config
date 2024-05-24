@@ -6,7 +6,7 @@ autocmd("VimResized", {
   command = "tabdo wincmd =",
 
 })
-
+-- require'navigator'.setup()
 -- require('nvim-ts-autotag').setup()
 
 -- require("typescript-tools")

@@ -135,6 +135,8 @@ lspconfig["omnisharp"].setup {
     ["textDocument/references"] = require("omnisharp_extended").references_handler,
     ["textDocument/implementation"] = require("omnisharp_extended").implementation_handler,
   },
+  capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 -- lspconfig.eslint.setup {};
@@ -158,38 +160,41 @@ lspconfig["biome"].setup {
 }
 
 local mason_registry = require('mason-registry')
-local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
+'/node_modules/@vue/language-server'
 
 lspconfig["tsserver"].setup {
-  filetypes = {"vue","typescript", "javascript","typescriptreact", "javascriptreact","angular","html"},
-    plugins = {
-      {
-        name = "@vue/typescript-plugin",
-        location = vue_language_server_path,
-        languages = {"javascript", "typescript", "vue"},
-      },
+  filetypes = { "vue", "typescript", "javascript", "typescriptreact", "javascriptreact", "angular", "html" },
+  plugins = {
+    {
+      name = "@vue/typescript-plugin",
+      location = vue_language_server_path,
+      languages = { "javascript", "typescript", "vue" },
     },
+  },
 }
 
 lspconfig["volar"].setup {
-  filetypes = {"vue", "typescript", "javascript"},
+  filetypes = { "vue", "typescript", "javascript" },
   init_options = {
     vue = {
       hybridMode = false,
     },
   }
 }
--- lspconfig["rust_analyzer"].setup {
---   rust_analyzer = {
---     settings = {
---       ["rust-analyzer"] = {
---         procMacro = { enable = true },
---         cargo = { allFeatures = true },
---         checkOnSave = {
---           command = "clippy",
---           extraArgs = { "--no-deps" },
---         },
---       },
---     },
---   },
--- }
+
+
+lspconfig["rust_analyzer"].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    ["rust-analyzer"] = {
+      procMacro = { enable = true },
+      cargo = { allFeatures = true },
+      checkOnSave = {
+        command = "clippy",
+        extraArgs = { "--no-deps" },
+      },
+    },
+  },
+}

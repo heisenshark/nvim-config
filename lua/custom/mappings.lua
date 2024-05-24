@@ -13,6 +13,7 @@ M.general = {
     -- moving lines config
     ["<A-j>"] = { ":m +1<CR>" },
     ["<A-k>"] = { ":m -2<CR>" },
+    ["<leader>N"] ={":AerialNavOpen<CR>"},
   },
   v = {
     -- moving multiple lines config

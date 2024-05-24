@@ -16,20 +16,21 @@ local formatting_style = {
   -- default fields order i.e completion word + item.kind + item.kind icons
   fields = field_arrangement[cmp_style] or { "abbr", "kind", "menu" },
 
-  format = function(_, item)
+  format = function(entry, vim_item)
     local icons = require "nvchad.icons.lspkind"
-    local icon = (cmp_ui.icons and icons[item.kind]) or ""
+    local icon = (cmp_ui.icons and icons[vim_item.kind]) or ""
+    vim_item = require("tailwind-tools.cmp").lspkind_format(entry,vim_item)
 
     if cmp_style == "atom" or cmp_style == "atom_colored" then
       icon = " " .. icon .. " "
-      item.menu = cmp_ui.lspkind_text and "   (" .. item.kind .. ")" or ""
-      item.kind = icon
+      vim_item.menu = cmp_ui.lspkind_text and "   (" .. vim_item.kind .. ")" or ""
+      vim_item.kind = icon
     else
       icon = cmp_ui.lspkind_text and (" " .. icon .. " ") or icon
-      item.kind = string.format("%s %s", icon, cmp_ui.lspkind_text and item.kind or "")
+      vim_item.kind = string.format("%s %s", icon, cmp_ui.lspkind_text and vim_item.kind or "")
     end
 
-    return item
+    return vim_item
   end,
 }
 
@@ -115,15 +116,15 @@ local options = {
 }
 
 vim.api.nvim_create_autocmd("LspAttach", {
-	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-	callback = function(ev)
-		for _, client in pairs((vim.lsp.get_clients {})) do
-			if client.name == "tailwindcss" then
-				client.server_capabilities.completionProvider.triggerCharacters =
-					{ '"', "'", "`", ".", "(", "[", "!", "/", ":" }
-			end
-		end
-	end,
+  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+  callback = function(ev)
+    for _, client in pairs((vim.lsp.get_clients {})) do
+      if client.name == "tailwindcss" then
+        client.server_capabilities.completionProvider.triggerCharacters =
+        { '"', "'", "`", ".", "(", "[", "!", "/", ":" }
+      end
+    end
+  end,
 })
 
 if cmp_style ~= "atom" and cmp_style ~= "atom_colored" then

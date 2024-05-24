@@ -11,6 +11,10 @@ local plugins = {
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
     end, -- Override to setup mason-lspconfig
+    opts = {
+      -- inlay_hints = {enabled = true},
+      inlay_hints = { enabled = true },
+    },
   },
 
   -- override plugin configs
@@ -111,13 +115,13 @@ local plugins = {
             opts = { desc = "move right" },
           },
           ["<C-u>"] = {
-            method = function ()
+            method = function()
               mcsel.move_by_motion("b")
             end,
             opts = { desc = "move word left" },
           },
           ["<C-i>"] = {
-            method = function ()
+            method = function()
               mcsel.move_by_motion("E")
             end,
             opts = { desc = "move word right" },
@@ -184,10 +188,10 @@ local plugins = {
         max_height = nil,
         max_width_window_percentage = nil,
         max_height_window_percentage = 50,
-        window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
+        window_overlap_clear_enabled = false,                                     -- toggles images when windows are overlapped
         window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
-        editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
-        tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
+        editor_only_render_when_focused = false,                                  -- auto show/hide images when the editor gains/looses focus
+        tmux_show_only_in_active_window = false,                                  -- auto show/hide images in the correct Tmux window (needs visual-activity off)
         hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" }, -- render image files as images when opened
       }
     end,
@@ -209,11 +213,11 @@ local plugins = {
     opts = function()
       local logo = [[
          ██╗      █████╗ ███████╗██╗   ██╗██╗   ██╗██╗███╗   ███╗          Z
-         ██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝██║   ██║██║████╗ ████║      Z    
-         ██║     ███████║  ███╔╝  ╚████╔╝ ██║   ██║██║██╔████╔██║   z       
-         ██║     ██╔══██║ ███╔╝    ╚██╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║ z         
-         ███████╗██║  ██║███████╗   ██║    ╚████╔╝ ██║██║ ╚═╝ ██║           
-         ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝           
+         ██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝██║   ██║██║████╗ ████║      Z
+         ██║     ███████║  ███╔╝  ╚████╔╝ ██║   ██║██║██╔████╔██║   z
+         ██║     ██╔══██║ ███╔╝    ╚██╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║ z
+         ███████╗██║  ██║███████╗   ██║    ╚████╔╝ ██║██║ ╚═╝ ██║
+         ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝
     ]]
 
       logo = string.rep("\n", 8 + 6) .. "\n\n"
@@ -255,10 +259,10 @@ local plugins = {
               key = "g",
             },
             {
-              action = function ()
+              action = function()
                 local function press_keys(keys)
-                    -- Użyj funkcji nvim_feedkeys do symulacji naciśnięcia klawiszy
-                    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, true, true), 'n', true)
+                  -- Użyj funkcji nvim_feedkeys do symulacji naciśnięcia klawiszy
+                  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, true, true), 'n', true)
                 end
                 vim.cmd("cd ~/.config/nvim/")
                 vim.cmd("NvimTreeOpen")
@@ -270,7 +274,7 @@ local plugins = {
               key = "c",
             },
             {
-              action = function ()
+              action = function()
                 require("persistence").load()
                 -- require("nvchad.statusline.default").run()
               end,
@@ -338,24 +342,57 @@ local plugins = {
     lazy = false,
   },
   {
-  "folke/persistence.nvim",
-  event = "BufReadPre", -- this will only start session saving when an actual file was opened
-  opts = {
-    options = {"buffers", "curdir", "tabpages", "winsize"},
-    -- add any custom options here
-  }
+    "folke/persistence.nvim",
+    event = "BufReadPre", -- this will only start session saving when an actual file was opened
+    opts = {
+      options = { "buffers", "curdir", "tabpages", "winsize" },
+      -- add any custom options here
+    }
   },
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
     config = function()
-        require("nvim-surround").setup({
-            -- Configuration here, or leave empty to use defaults
-        })
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
     end,
     lazy = false,
   },
+  {
+    'vidocqh/data-viewer.nvim',
+    opts = {},
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "kkharji/sqlite.lua", -- Optional, sqlite support
+    },
+    lazy = false,
+  },
+  {
+    'stevearc/aerial.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons"
+    },
+    config = function()
+      require 'aerial'.setup()
+    end,
+    lazy = false,
+  },
+  {
+    "luckasRanarison/tailwind-tools.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    opts = {}, -- your configuration
+    lazy = false,
+  },
+  {
+    "onsails/lspkind.nvim",
+    lazy = false,
+  },
+
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
