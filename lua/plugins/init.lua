@@ -173,9 +173,6 @@ local default_plugins = {
     end,
     config = function(_, opts)
       require("cmp").setup(opts)
-      require("cmp").config.formatting = {
-        format = require("tailwindcss-colorizer-cmp").formatter
-      }
     end,
   },
 
