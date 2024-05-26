@@ -161,7 +161,7 @@ lspconfig["biome"].setup {
 
 local mason_registry = require('mason-registry')
 local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
-'/node_modules/@vue/language-server'
+    '/node_modules/@vue/language-server'
 
 lspconfig["tsserver"].setup {
   filetypes = { "vue", "typescript", "javascript", "typescriptreact", "javascriptreact", "angular", "html" },
@@ -172,6 +172,18 @@ lspconfig["tsserver"].setup {
       languages = { "javascript", "typescript", "vue" },
     },
   },
+  init_options = {
+    preferences = {
+      includeInlayParameterNameHints = 'all',
+      includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+      includeInlayFunctionParameterTypeHints = true,
+      includeInlayVariableTypeHints = true,
+      includeInlayPropertyDeclarationTypeHints = true,
+      includeInlayFunctionLikeReturnTypeHints = true,
+      includeInlayEnumMemberValueHints = true,
+      importModuleSpecifierPreference = 'non-relative',
+    }
+  }
 }
 
 lspconfig["volar"].setup {

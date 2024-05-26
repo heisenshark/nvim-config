@@ -6,14 +6,15 @@ M.general = {
     --  format with conform
     ["<leader>fm"] = {
       function()
-        require("conform").format({async = true, lsp_fallback = true})
+        require("conform").format({ async = true, lsp_fallback = true })
       end,
       "formatting",
     },
     -- moving lines config
     ["<A-j>"] = { ":m +1<CR>" },
     ["<A-k>"] = { ":m -2<CR>" },
-    ["<leader>N"] ={":AerialNavOpen<CR>"},
+    ["<leader>N"] = { ":AerialNavOpen<CR>" },
+    ["<leader>il"] = { ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>", "toggle inlay hints" },
   },
   v = {
     -- moving multiple lines config
