@@ -401,9 +401,101 @@ local plugins = {
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
     },
-    lazy=false,
+    lazy = false,
   },
+  {
+    "gerazov/ollama-chat.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "stevearc/dressing.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    cmd = {
+      "OllamaQuickChat",
+      "OllamaCreateNewChat",
+      "OllamaContinueChat",
+      "OllamaChat",
+      "OllamaChatCode",
+      "OllamaModel",
+      "OllamaServe",
+      "OllamaServeStop"
+    },
 
+    keys = {
+      {
+        "<leader>ocq",
+        "<cmd>OllamaQuickChat<cr>",
+        desc = "Ollama Quick Chat",
+        mode = { "n", "x" },
+        silent = true,
+      },
+      {
+        "<leader>ocn",
+        "<cmd>OllamaCreateNewChat<cr>",
+        desc = "Create Ollama Chat",
+        mode = { "n", "x" },
+        silent = true,
+      },
+      {
+        "<leader>occ",
+        "<cmd>OllamaContinueChat<cr>",
+        desc = "Continue Ollama Chat",
+        mode = { "n", "x" },
+        silent = true,
+      },
+      {
+        "<leader>och",
+        "<cmd>OllamaChat<cr>",
+        desc = "Chat",
+        mode = { "n" },
+        silent = true,
+      },
+      {
+        "<leader>ocd",
+        "<cmd>OllamaChatCode<cr>",
+        desc = "Chat Code",
+        mode = { "n" },
+        silent = true,
+      },
+    },
+
+    opts = {
+      chats_folder = vim.fn.stdpath("data"), -- data folder is ~/.local/share/nvim
+      -- you can also choose "current" and "tmp"
+      quick_chat_file = "ollama-chat.md",
+      animate_spinner = true, -- set this to false to disable spinner animation
+      model = "llama3",
+      model_code = "codellama",
+      url = "http://127.0.0.1:11434",
+      serve = {
+        on_start = false,
+        command = "ollama",
+        args = { "serve" },
+        stop_command = "pkill",
+        stop_args = { "-SIGTERM", "ollama" },
+      },
+    },
+    {
+      "supermaven-inc/supermaven-nvim",
+      config = function()
+        require("supermaven-nvim").setup({
+          keymaps = {
+            accept_suggestion = "<C-a>",
+            clear_suggestion = "<C-]>",
+            accept_word = "<C-s>",
+          },
+          ignore_filetypes = { cpp = true },
+          color = {
+            suggestion_color = "#ffffff",
+            cterm = 244,
+          },
+          disable_inline_completion = false, -- disables inline completion for use with cmp
+          disable_keymaps = false    -- disables built in keymaps for more manual control
+        })
+      end,
+      lazy = false,
+    },
+  }
 
   -- To make a plugin not be loaded
   -- {
