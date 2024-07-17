@@ -15,6 +15,8 @@ M.general = {
     ["<A-k>"] = { ":m -2<CR>" },
     ["<leader>N"] = { ":AerialNavOpen<CR>" },
     ["<leader>il"] = { ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>", "toggle inlay hints" },
+    ["<leader>gd"] = { ":DiffviewOpen<CR>", "Open diffview" },
+    ["<leader>gD"] = { ":DiffviewClose<CR>", "Open diffview" },
   },
   v = {
     -- moving multiple lines config

@@ -17,6 +17,7 @@ local servers = {
   "sqlls",
   "zls",
   "tailwindcss",
+  "nil_ls",
 }
 
 for _, lsp in ipairs(servers) do

@@ -490,12 +490,44 @@ local plugins = {
             cterm = 244,
           },
           disable_inline_completion = false, -- disables inline completion for use with cmp
-          disable_keymaps = false    -- disables built in keymaps for more manual control
+          disable_keymaps = false            -- disables built in keymaps for more manual control
         })
       end,
       lazy = false,
     },
-  }
+    {
+      "lommix/godot.nvim",
+      lazy = false,
+      configs = function()
+        local config = {
+          bin = "/home/heisenshark/godot/Godot_v4.2.1-stable_mono_linux_x86_64/Godot_v4.2.1-stable_mono_linux.x86_64",
+          -- gui = {
+          -- 	console_config = @config for vim.api.nvim_open_win
+          -- }
+        }
+        require("godot").setup(config)
+      end,
+    }
+  },
+  {
+    "rest-nvim/rest.nvim",
+    rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" },
+    config = function()
+      require("rest-nvim").setup()
+    end,
+    lazy = false,
+  },
+  {
+    "m4xshen/hardtime.nvim",
+    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+    opts = {},
+    lazy = false,
+  },
+{
+    "tris203/precognition.nvim",
+    opts = {},
+    lazy = false,
+}
 
   -- To make a plugin not be loaded
   -- {
