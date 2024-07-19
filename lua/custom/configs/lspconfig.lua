@@ -16,7 +16,6 @@ local servers = {
   "rust_analyzer",
   "sqlls",
   "zls",
-  "tailwindcss",
   "nil_ls",
 }
 
@@ -210,4 +209,10 @@ lspconfig["rust_analyzer"].setup {
       },
     },
   },
+}
+
+lspconfig["tailwindcss"].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
 }

@@ -18,6 +18,7 @@ local options = {
     ["c#"] = {"ast-grep","csharpier","clangformat"},
     ["cs"] = {"csharpier","clangformat"},
     rust = {"rustfmt"},
+    markdown = {"prettier"},
     -- ["*.cs"] = {"csharpier"},
   },
   -- adding same formatter for multiple filetypes can look too much work for some

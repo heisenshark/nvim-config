@@ -175,6 +175,18 @@ local plugins = {
             download_remote_images = true,
             only_render_image_at_cursor = false,
             filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
+            resolve_image_path = function(document_path, image_path, fallback)
+              local obsidian = require("obsidian")
+              local obsidian_client_path = obsidian.get_client().vault_root(obsidian.get_client()):resolve()
+              local buffer_path = vim.fn.expand("%:p")
+              if string.find(buffer_path, tostring(obsidian_client_path)) ~= nil then
+                local paths = obsidian.get_client().find_files(obsidian.get_client(), image_path)
+                if #paths > 0 then
+                  return tostring(paths[1])
+                end
+              end
+              return fallback(document_path, image_path)
+            end,
           },
           neorg = {
             enabled = true,
@@ -187,9 +199,14 @@ local plugins = {
         max_width = nil,
         max_height = nil,
         max_width_window_percentage = nil,
-        max_height_window_percentage = 50,
-        window_overlap_clear_enabled = false,                                     -- toggles images when windows are overlapped
-        window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+        max_height_window_percentage = 40,
+        window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
+        window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", 'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
+          'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
+          'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
+          'SignColumn', 'CursorLine', 'CursorLineNr', 'StatusLine', 'StatusLineNC',
+          'EndOfBuffer',
+        },
         editor_only_render_when_focused = false,                                  -- auto show/hide images when the editor gains/looses focus
         tmux_show_only_in_active_window = false,                                  -- auto show/hide images in the correct Tmux window (needs visual-activity off)
         hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" }, -- render image files as images when opened
@@ -523,11 +540,57 @@ local plugins = {
     opts = {},
     lazy = false,
   },
-{
+  {
     "tris203/precognition.nvim",
     opts = {},
     lazy = false,
-}
+  },
+  {
+    "epwalsh/obsidian.nvim",
+    version = "*", -- recommended, use latest release instead of latest commit
+    lazy = true,
+    ft = "markdown",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    opts = {
+      ui = {
+        enable = false,
+      },
+      workspaces = {
+        {
+          name = "personal",
+          path = "~/repos/obsidianmd/",
+        },
+      },
+      follow_url_func = function(url)
+        vim.fn.jobstart({ "xdg-open", url }) -- linux
+      end,
+
+    },
+  },
+  {
+    'TobinPalmer/pastify.nvim',
+    cmd = { 'Pastify', 'PastifyAfter' },
+    config = function()
+      require('pastify').setup {
+        opts = {
+          apikey = "YOUR API KEY (https://api.imgbb.com/)", -- Needed if you want to save online.
+        },
+      }
+    end
+  },
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+  },
+  {
+    'jbyuki/nabla.nvim',
+    lazy = false,
+  }
+
+
+
 
   -- To make a plugin not be loaded
   -- {
