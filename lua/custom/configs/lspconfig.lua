@@ -16,7 +16,7 @@ local servers = {
   "rust_analyzer",
   "sqlls",
   "zls",
-  "nil_ls",
+  "nixd",
 }
 
 for _, lsp in ipairs(servers) do

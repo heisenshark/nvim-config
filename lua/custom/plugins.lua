@@ -155,13 +155,13 @@ local plugins = {
     "eraserhd/parinfer-rust",
     lazy = false,
   },
-  {
-    "vhyrro/luarocks.nvim",
-    priority = 1001, -- this plugin needs to run before anything else
-    opts = {
-      rocks = { "magick" },
-    },
-  },
+  -- {
+  --   "vhyrro/luarocks.nvim",
+  --   priority = 1001, -- this plugin needs to run before anything else
+  --   opts = {
+  --     rocks = { "magick" },
+  --   },
+  -- },
   {
     "3rd/image.nvim",
     dependencies = { "luarocks.nvim" },
@@ -527,14 +527,6 @@ local plugins = {
     }
   },
   {
-    "rest-nvim/rest.nvim",
-    rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" },
-    config = function()
-      require("rest-nvim").setup()
-    end,
-    lazy = false,
-  },
-  {
     "m4xshen/hardtime.nvim",
     dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
     opts = {},
@@ -543,7 +535,7 @@ local plugins = {
   {
     "tris203/precognition.nvim",
     opts = {},
-    lazy = false,
+    lazy = true,
   },
   {
     "epwalsh/obsidian.nvim",
@@ -587,7 +579,43 @@ local plugins = {
   {
     'jbyuki/nabla.nvim',
     lazy = false,
-  }
+  },
+  -- {
+  --   "yetone/avante.nvim",
+  --   disabled = true,
+  --   lazy = true,
+  --   event = "VeryLazy",
+  --   build = "make", -- This is Optional, only if you want to use tiktoken_core to calculate tokens count
+  --   opts = {
+  --     -- add any opts here
+  --   },
+  --   dependencies = {
+  --     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+  --     "stevearc/dressing.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "MunifTanjim/nui.nvim",
+  --     --- The below is optional, make sure to setup it properly if you have lazy=true
+  --     {
+  --       'MeanderingProgrammer/render-markdown.nvim',
+  --       opts = {
+  --         file_types = { "markdown", "Avante" },
+  --       },
+  --       ft = { "markdown", "Avante" },
+  --     },
+  --   },
+  --     opts = {
+  --
+  --         provider = "openai",
+  --         openai = {
+  --           endpoint = "http://127.0.0.1:11434/v1",
+  --           model = "deepseek-coder-v2:latest",
+  --           temperature = 0,
+  --           max_tokens = 4096,
+  --           ["local"] = true,
+  --           api_key_name ="",
+  --         }
+  --     }
+  -- },
 
 
 

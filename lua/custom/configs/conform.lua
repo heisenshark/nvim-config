@@ -19,6 +19,7 @@ local options = {
     ["cs"] = {"csharpier","clangformat"},
     rust = {"rustfmt"},
     markdown = {"prettier"},
+    nix = {"alejandra"},
     -- ["*.cs"] = {"csharpier"},
   },
   -- adding same formatter for multiple filetypes can look too much work for some
