@@ -25,7 +25,22 @@ local default_plugins = {
     end,
     config = function(_, opts)
       require "base46.term"
-      require("nvterm").setup(opts)
+      require("nvterm").setup(
+        {
+          terminals = {
+            type_opts = {
+              float = {
+                relative = "editor",
+                width = 0.9,
+                height = 0.85,
+                row = 0.05,
+                col = 0.05,
+                border = "single",
+              },
+            }
+          }
+        }
+      )
     end,
   },
 
@@ -70,7 +85,7 @@ local default_plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile" },
-    tag = "v0.9.2",
+    -- tag = "v10.0.2",
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     opts = function()
@@ -78,7 +93,7 @@ local default_plugins = {
     end,
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "syntax")
-      require("nvim-treesitter.configs").setup(opts)
+      -- require("nvim-treesitter.configs").setup(opts)
     end,
   },
 
@@ -231,21 +246,6 @@ local default_plugins = {
       end
     end,
   },
-  {
-    "ThePrimeagen/vim-be-good",
-    lazy = false,
-  },
-
-  {
-    "glacambre/firenvim",
-
-    -- Lazy load firenvim
-    -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
-    lazy = false,
-    build = function()
-      vim.fn["firenvim#install"](0)
-    end,
-  },
 
   -- Only load whichkey after all the gui
   {
@@ -260,16 +260,6 @@ local default_plugins = {
       require("which-key").setup(opts)
     end,
   },
-  {
-    "glacambre/firenvim",
-
-    -- Lazy load firenvim
-    -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
-    lazy = not vim.g.started_by_firenvim,
-    build = function()
-      vim.fn["firenvim#install"](0)
-    end,
-  },
 }
 
 local config = require("core.utils").load_config()
@@ -277,5 +267,4 @@ local config = require("core.utils").load_config()
 if #config.plugins > 0 then
   table.insert(default_plugins, { import = config.plugins })
 end
-
 require("lazy").setup(default_plugins, config.lazy_nvim)

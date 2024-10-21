@@ -258,7 +258,7 @@ M.nvimtree = {
 
   n = {
     -- toggle
-    ["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
+    ["<A-n>"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
 
     -- focus
     ["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "Focus nvimtree" },
@@ -304,12 +304,12 @@ M.nvterm = {
       "Toggle floating term",
     },
 
-    ["<A-h>"] = {
-      function()
-        require("nvterm.terminal").toggle "horizontal"
-      end,
-      "Toggle horizontal term",
-    },
+    -- ["<A-h>"] = {
+    --   function()
+    --     require("nvterm.terminal").toggle "horizontal"
+    --   end,
+    --   "Toggle horizontal term",
+    -- },
 
     ["<A-v>"] = {
       function()
@@ -328,12 +328,12 @@ M.nvterm = {
       "Toggle floating term",
     },
 
-    ["<A-h>"] = {
-      function()
-        require("nvterm.terminal").toggle "horizontal"
-      end,
-      "Toggle horizontal term",
-    },
+    -- ["<A-h>"] = {
+    --   function()
+    --     require("nvterm.terminal").toggle "horizontal"
+    --   end,
+    --   "Toggle horizontal term",
+    -- },
 
     ["<A-v>"] = {
       function()

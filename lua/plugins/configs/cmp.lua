@@ -115,17 +115,17 @@ local options = {
   },
 }
 
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-  callback = function(ev)
-    for _, client in pairs((vim.lsp.get_clients {})) do
-      if client.name == "tailwindcss" then
-        client.server_capabilities.completionProvider.triggerCharacters =
-        { '"', "'", "`", ".", "(", "[", "!", "/", ":" }
-      end
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+--   callback = function(ev)
+--     for _, client in pairs((vim.lsp.get_clients {})) do
+--       if client.name == "tailwindcss" then
+--         client.server_capabilities.completionProvider.triggerCharacters =
+--         { '"', "'", "`", ".", "(", "[", "!", "/", ":" }
+--       end
+--     end
+--   end,
+-- })
 
 if cmp_style ~= "atom" and cmp_style ~= "atom_colored" then
   options.window.completion.border = border "CmpBorder"

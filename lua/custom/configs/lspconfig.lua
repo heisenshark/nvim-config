@@ -32,6 +32,7 @@ end
 --   on_attach = on_attach,
 --   capabilities = capabilities,
 -- }
+
 -- lspconfig["ltex"].setup {
 --   on_attach = on_attach,
 --   capabilities = capabilities,
@@ -139,7 +140,7 @@ lspconfig["omnisharp"].setup {
   on_attach = on_attach,
 }
 
--- lspconfig.eslint.setup {};
+lspconfig.eslint.setup {};
 
 lspconfig["biome"].setup {
   cmd = { "biome", "lsp-proxy" },
@@ -163,15 +164,15 @@ local mason_registry = require('mason-registry')
 local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
     '/node_modules/@vue/language-server'
 
-lspconfig["tsserver"].setup {
+lspconfig["ts_ls"].setup {
   filetypes = { "vue", "typescript", "javascript", "typescriptreact", "javascriptreact", "angular", "html" },
-  plugins = {
-    {
-      name = "@vue/typescript-plugin",
-      location = vue_language_server_path,
-      languages = { "javascript", "typescript", "vue" },
-    },
-  },
+  -- plugins = {
+  --   {
+  --     name = "@vue/typescript-plugin",
+  --     location = vue_language_server_path,
+  --     languages = { "javascript", "typescript", "vue" },
+  --   },
+  -- },
   init_options = {
     preferences = {
       includeInlayParameterNameHints = 'all',
@@ -186,14 +187,14 @@ lspconfig["tsserver"].setup {
   }
 }
 
-lspconfig["volar"].setup {
-  filetypes = { "vue", "typescript", "javascript" },
-  init_options = {
-    vue = {
-      hybridMode = false,
-    },
-  }
-}
+-- lspconfig["volar"].setup {
+--   filetypes = { "vue", "typescript", "javascript" },
+--   init_options = {
+--     vue = {
+--       hybridMode = false,
+--     },
+--   }
+-- }
 
 
 lspconfig["rust_analyzer"].setup {

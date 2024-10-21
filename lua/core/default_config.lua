@@ -11,7 +11,7 @@ M.ui = {
   hl_override = {},
   changed_themes = {},
   theme_toggle = { "onedark", "one_light" },
-  theme = "onedark", -- default theme
+  theme = "onedark",           -- default theme
   transparency = false,
   lsp_semantic_tokens = false, -- needs nvim v0.9, just adds highlight groups for lsp semantic tokens
 
@@ -22,9 +22,14 @@ M.ui = {
   cmp = {
     icons = true,
     lspkind_text = true,
-    style = "default", -- default/flat_light/flat_dark/atom/atom_colored
-    border_color = "grey_fg", -- only applicable for "default" style, use color names from base30 variables
+    style = "default",            -- default/flat_light/flat_dark/atom/atom_colored
+    border_color = "grey_fg",     -- only applicable for "default" style, use color names from base30 variables
     selected_item_bg = "colored", -- colored / simple
+    performance = {
+      trigger_debounce_time = 500,
+      throttle = 550,
+      fetching_timeout = 80,
+    },
   },
 
   telescope = { style = "borderless" }, -- borderless / bordered
@@ -81,12 +86,28 @@ M.ui = {
       silent = true, -- silences 'no signature help available' message from appearing
     },
   },
+
 }
 
-M.plugins = "" -- path i.e "custom.plugins", so make custom/plugins.lua file
+M.nvterm = {
+  terminals = {
+    type_opts = {
+      float = {
+        relative = "editor",
+        width = 30,
+        height = 30,
+        row = 1,
+        col = 1,
+        border = "single",
+      },
+    }
+  }
+}
 
+M.plugins = ""                                    -- path i.e "custom.plugins", so make custom/plugins.lua file
+--
 M.lazy_nvim = require "plugins.configs.lazy_nvim" -- config for lazy.nvim startup options
-
+--
 M.mappings = require "core.mappings"
 
 return M

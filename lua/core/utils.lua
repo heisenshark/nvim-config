@@ -114,5 +114,4 @@ M.lazy_load = function(plugin)
     end,
   })
 end
-
 return M
