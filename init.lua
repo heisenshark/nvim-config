@@ -179,8 +179,12 @@ vim.keymap.set('n', '<C-s>', '<cmd>w<CR>')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump { count = 1, float = true }
+end, { desc = 'Go to previous [D]iagnostic message' })
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.jump { count = -1, float = true }
+end, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
@@ -708,7 +712,24 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       -- Feel free to check the nixd docs for more configuration options:
       -- https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md
       if require('nixCatsUtils').isNixCats then
-        servers.nixd = {}
+        servers.nixd = {
+          cmd = { 'nixd' },
+          settings = {
+            nixd = {
+              nixpkgs = {
+                expr = 'import <nixpkgs> { }',
+              },
+              options = {
+                nixos = {
+                  expr = '(builtins.getFlake "/home/heisenshark/.config/nixos/flake.nix").nixosConfigurations.desktop.options',
+                },
+                home_manager = {
+                  expr = '(builtins.getFlake "/home/heisenshark/.config/nixos/flake.nix").homeConfigurations."heisenshark@desktop".options',
+                },
+              },
+            },
+          },
+        }
       else
         servers.rnix = {}
         servers.nil_ls = {}
@@ -803,7 +824,8 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
+        javascript = { { 'prettierd', 'prettier' } },
+        nix = { 'nixfmt' },
       },
     },
   },
