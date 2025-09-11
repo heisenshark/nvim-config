@@ -31,10 +31,27 @@
         "type": "github"
       }
     },
+    "plugins-everforest-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1757522576,
+        "narHash": "sha256-nOMUb55P5mqUKD5w5xppJ94+gGnZbllJBoAiQLFFLA0=",
+        "owner": "neanias",
+        "repo": "everforest-nvim",
+        "rev": "d2936185a6d266def29fd7b523d296384580ef08",
+        "type": "github"
+      },
+      "original": {
+        "owner": "neanias",
+        "repo": "everforest-nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "nixCats": "nixCats",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "plugins-everforest-nvim": "plugins-everforest-nvim"
       }
     }
   },

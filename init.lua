@@ -271,6 +271,7 @@ local lazyOptions = {
 -- argument, the path to lazy.nvim as downloaded by nix, or nil, before the normal arguments.
 require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 'lazy.nvim' }, {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
+  --
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   -- NOTE: Plugins can also be added by using a table,
@@ -947,7 +948,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here. Some colorscheme plugins may offer multiple colorscheme choices or options.
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'everforest'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'

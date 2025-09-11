@@ -24,6 +24,11 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
+    "plugins-everforest-nvim" = {
+      url = "github:neanias/everforest-nvim";
+      flake = false;
+    };
+
     # neovim-nightly-overlay = {
     #   url = "github:nix-community/neovim-nightly-overlay";
     # };
@@ -76,6 +81,7 @@
           # Once we add this overlay to our nixpkgs, we are able to
           # use `pkgs.neovimPlugins`, which is a set of our plugins.
           (utils.standardPluginOverlay inputs)
+
           # add any other flake overlays here.
 
           # when other people mess up their overlays by wrapping them with system,
@@ -138,6 +144,8 @@
           # This is for plugins that will load at startup without using packadd:
           startupPlugins = with pkgs.vimPlugins; {
             general = [
+              pkgs.neovimPlugins.everforest-nvim
+              friendly-snippets
               supermaven-nvim
               vim-sleuth
               lazy-nvim
