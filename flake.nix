@@ -170,7 +170,11 @@
               onedark-nvim
               todo-comments-nvim
               mini-nvim
+              markview-nvim
+              image-nvim
               nvim-treesitter.withAllGrammars
+              rocks-nvim
+              obsidian-nvim
               # This is for if you only want some of the grammars
               # (nvim-treesitter.withPlugins (
               #   plugins: with plugins; [

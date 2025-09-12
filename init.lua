@@ -749,6 +749,10 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
               globals = { 'nixCats' },
               disable = { 'missing-fields' },
             },
+            workspace = {
+              [vim.fn.expand '$VIMRUNTIME/lua'] = true,
+              [vim.fn.expand '$VIMRUNTIME/lua/vim/lsp'] = true,
+            },
           },
         },
       }
