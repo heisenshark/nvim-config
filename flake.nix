@@ -174,6 +174,8 @@
               image-nvim
               nvim-treesitter.withAllGrammars
               rocks-nvim
+              persistence-nvim
+              dashboard-nvim
               obsidian-nvim
               # This is for if you only want some of the grammars
               # (nvim-treesitter.withPlugins (
