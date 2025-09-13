@@ -693,6 +693,18 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
 ,
       }
 
+      servers.roslyn_ls = {
+        name = 'roslyn',
+        cmd = {
+          'roslyn',
+          '--logLevel=Information',
+          '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
+          '--stdio',
+        },
+      }
+
+      servers.ruff = {}
+
       --[[ servers.ts_ls = {
         filetypes = { 'typescript', 'typescriptreact' },
         init_options = {
@@ -843,6 +855,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         -- is found.
         javascript = { { 'prettierd', 'prettier' } },
         nix = { 'nixfmt' },
+        csharp = { 'csharpier' },
       },
     },
   },

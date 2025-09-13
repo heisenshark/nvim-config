@@ -22,6 +22,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
     "plugins-everforest-nvim" = {
@@ -59,10 +60,12 @@
       self,
       nixpkgs,
       nixCats,
+      nixpkgs-stable,
       ...
     }@inputs:
     let
       inherit (nixCats) utils;
+      system = "x86_64-linux";
       luaPath = ./.;
       forEachSystem = utils.eachSystem nixpkgs.lib.platforms.all;
       # the following extra_pkg_config contains any values
@@ -73,6 +76,7 @@
       extra_pkg_config = {
         # allowUnfree = true;
       };
+      pkgs-stable = import nixpkgs-stable { inherit system; };
       # management of the system variable is one of the harder parts of using flakes.
 
       # so I have done it here in an interesting way to keep it out of the way.
@@ -113,6 +117,20 @@
           mkPlugin,
           ...
         }@packageDef:
+        let
+          overridden-roslyn-ls = (
+            pkgs.roslyn-ls.overrideAttrs (oldAttrs: {
+              useDotnetFromEnv = false; # needed to make it run with different .NET host environment
+              # useAppHost = false;
+            })
+          );
+          custom-roslyn-command = (
+            pkgs.runCommand "roslyn" { } ''
+              mkdir -p $out/bin
+              ln -s ${overridden-roslyn-ls}/bin/Microsoft.CodeAnalysis.LanguageServer $out/bin/roslyn
+            ''
+          );
+        in
         {
           # to define and use a new category, simply add a new list to a set here,
           # and later, you will include categoryname = true; in the set you
@@ -140,6 +158,12 @@
               nix-doc
               nixd
               nixfmt
+              # c#
+              netcoredbg
+              custom-roslyn-command
+              csharpier
+              # python
+              ruff
             ];
             kickstart-debug = [
               delve
@@ -155,6 +179,16 @@
               pkgs.neovimPlugins.everforest-nvim
               pkgs.neovimPlugins.instant-nvim
               pkgs.neovimPlugins.ror-nvim
+              {
+                plugin = roslyn-nvim.overrideAttrs (oldAttrs: {
+                  src = pkgs.fetchFromGitHub {
+                    owner = "seblyng";
+                    repo = "roslyn.nvim";
+                    rev = "3b5b6c687ecaeccbac7652673385511a3deba7bb";
+                    hash = "sha256-tGkEL9lOelLkB1VPVUAWPeRNiMntYRr0DN9iWrN1Csc=";
+                  };
+                });
+              }
               friendly-snippets
               supermaven-nvim
               vim-sleuth
@@ -191,6 +225,7 @@
               neocord
               ts-autotag-nvim
               live-share-nvim
+              roslyn-nvim
 
               # This is for if you only want some of the grammars
               # (nvim-treesitter.withPlugins (
