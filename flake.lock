@@ -47,11 +47,45 @@
         "type": "github"
       }
     },
+    "plugins-instant-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1656191307,
+        "narHash": "sha256-DXJWji/NR8ZCxe014rD51v3EHJHMhRQeOoI3SsY8mR4=",
+        "owner": "jbyuki",
+        "repo": "instant.nvim",
+        "rev": "294b6d08143b3db8f9db7f606829270149e1a786",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jbyuki",
+        "repo": "instant.nvim",
+        "type": "github"
+      }
+    },
+    "plugins-ror-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1711025874,
+        "narHash": "sha256-I4odR/oy5XZGfw/KXbzxz4K5FJX5J6vrLyrFA8ftF6o=",
+        "owner": "weizheheng",
+        "repo": "ror.nvim",
+        "rev": "9d31ad3953be83ac8dd542725ca4881c861f64a5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "weizheheng",
+        "repo": "ror.nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "nixCats": "nixCats",
         "nixpkgs": "nixpkgs",
-        "plugins-everforest-nvim": "plugins-everforest-nvim"
+        "plugins-everforest-nvim": "plugins-everforest-nvim",
+        "plugins-instant-nvim": "plugins-instant-nvim",
+        "plugins-ror-nvim": "plugins-ror-nvim"
       }
     }
   },

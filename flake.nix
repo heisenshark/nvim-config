@@ -28,6 +28,14 @@
       url = "github:neanias/everforest-nvim";
       flake = false;
     };
+    "plugins-instant-nvim" = {
+      url = "github:jbyuki/instant.nvim";
+      flake = false;
+    };
+    "plugins-ror-nvim" = {
+      url = "github:weizheheng/ror.nvim";
+      flake = false;
+    };
 
     # neovim-nightly-overlay = {
     #   url = "github:nix-community/neovim-nightly-overlay";
@@ -145,6 +153,8 @@
           startupPlugins = with pkgs.vimPlugins; {
             general = [
               pkgs.neovimPlugins.everforest-nvim
+              pkgs.neovimPlugins.instant-nvim
+              pkgs.neovimPlugins.ror-nvim
               friendly-snippets
               supermaven-nvim
               vim-sleuth
@@ -177,6 +187,11 @@
               persistence-nvim
               dashboard-nvim
               obsidian-nvim
+              aw-watcher-nvim
+              neocord
+              ts-autotag-nvim
+              live-share-nvim
+
               # This is for if you only want some of the grammars
               # (nvim-treesitter.withPlugins (
               #   plugins: with plugins; [
@@ -232,6 +247,7 @@
           environmentVariables = {
             test = {
               CATTESTVAR = "It worked!";
+
             };
           };
 

@@ -20,6 +20,14 @@
 =====================================================================
 =====================================================================
 
+DONE: add neocord
+DONE: add aw-watcher
+DONE: add nvim-ts-autotag or other autotag plugin
+DONE: add nvim-surround or other surround plugin (mini.nvim is already there)
+DONE: add live-share.nvim
+DONE: add ror nvim for ruby on rails development
+
+
 What is Kickstart?
 
   Kickstart.nvim is *not* a distribution.
@@ -210,6 +218,10 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+vim.keymap.set('n', '<leader>x', '<cmd>bdelete<cr>', { desc = 'close current buffer' })
+vim.keymap.set('n', '<Tab>', '<cmd>bnext<cr>', { desc = 'go to next buffer' })
+vim.keymap.set('n', '<S-Tab>', '<cmd>bprevious<cr>', { desc = 'go to previous buffer' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -979,6 +991,8 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+      require('mini.move').setup()
+      require('mini.tabline').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
