@@ -164,6 +164,9 @@
               csharpier
               # python
               ruff
+              # c++
+              libcxx
+              clang-tools
             ];
             kickstart-debug = [
               delve
