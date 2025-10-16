@@ -698,6 +698,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         flags = { debounce_text_changes = 150 },
       }
 
+      servers.qmlls = {}
       servers.vue_ls = {}
       servers.vtsls = {
         settings = {

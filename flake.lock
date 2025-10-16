@@ -79,6 +79,22 @@
         "type": "github"
       }
     },
+    "plugins-nvim-colorizer-lua": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1755106580,
+        "narHash": "sha256-VlVeRTtzfeS3OlN7d9P5cmqN9Go0XMpTp36RSGq7sr8=",
+        "owner": "catgoose",
+        "repo": "nvim-colorizer.lua",
+        "rev": "51cf7c995ed1eb6642aecf19067ee634fa1b6ba2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catgoose",
+        "repo": "nvim-colorizer.lua",
+        "type": "github"
+      }
+    },
     "plugins-ror-nvim": {
       "flake": false,
       "locked": {
@@ -102,6 +118,7 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "plugins-everforest-nvim": "plugins-everforest-nvim",
         "plugins-instant-nvim": "plugins-instant-nvim",
+        "plugins-nvim-colorizer-lua": "plugins-nvim-colorizer-lua",
         "plugins-ror-nvim": "plugins-ror-nvim"
       }
     }

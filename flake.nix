@@ -38,6 +38,11 @@
       flake = false;
     };
 
+    "plugins-nvim-colorizer-lua" = {
+      url = "github:catgoose/nvim-colorizer.lua";
+      flake = false;
+    };
+
     # neovim-nightly-overlay = {
     #   url = "github:nix-community/neovim-nightly-overlay";
     # };
@@ -167,6 +172,8 @@
               # c++
               libcxx
               clang-tools
+              # qml quickshell shit
+              kdePackages.qtdeclarative
             ];
             kickstart-debug = [
               delve
@@ -182,6 +189,7 @@
               pkgs.neovimPlugins.everforest-nvim
               pkgs.neovimPlugins.instant-nvim
               pkgs.neovimPlugins.ror-nvim
+              pkgs.neovimPlugins.nvim-colorizer-lua
               {
                 plugin = roslyn-nvim.overrideAttrs (oldAttrs: {
                   src = pkgs.fetchFromGitHub {
