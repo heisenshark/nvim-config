@@ -10,6 +10,8 @@ if is_dir(home .. '/repos/obsidianmd/') then
     name = 'personal',
     path = home .. '/repos/obsidianmd/',
   }
+else
+  return {}
 end
 
 return {
