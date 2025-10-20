@@ -1,3 +1,17 @@
+local function is_dir(path)
+  local stat = vim.loop.fs_stat(path)
+  return stat and stat.type == 'directory'
+end
+
+local home = os.getenv 'HOME'
+local workspace
+if is_dir(home .. '/repos/obsidianmd/') then
+  workspace = {
+    name = 'personal',
+    path = home .. '/repos/obsidianmd/',
+  }
+end
+
 return {
   {
     'obsidian-nvim/obsidian.nvim',
@@ -13,10 +27,7 @@ return {
         enable = false,
       },
       workspaces = {
-        {
-          name = 'personal',
-          path = '~/repos/obsidianmd/',
-        },
+        workspace,
       },
       follow_url_func = function(url)
         vim.fn.jobstart { 'xdg-open', url } -- linux
