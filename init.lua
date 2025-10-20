@@ -699,6 +699,9 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       }
 
       servers.qmlls = {}
+
+      servers.angularls = {}
+      servers.emmet_language_server = {}
       servers.vue_ls = {}
       servers.vtsls = {
         settings = {

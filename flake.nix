@@ -157,6 +157,8 @@
               stylua
               # js ts
               vue-language-server
+              angular-language-server
+              emmet-language-server
               vtsls
               tailwindcss-language-server
               # nix
