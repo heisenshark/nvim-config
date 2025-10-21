@@ -4,7 +4,7 @@ local function is_dir(path)
 end
 
 local home = os.getenv 'HOME'
-local workspace
+local workspace, enabled
 if is_dir(home .. '/repos/obsidianmd/') then
   workspace = {
     name = 'personal',
@@ -18,6 +18,7 @@ return {
   {
     'obsidian-nvim/obsidian.nvim',
     version = '*', -- recommended, use latest release instead of latest commit
+    enabled = is_dir(home .. '/repos/obsidianmd/'),
     lazy = false,
     ft = 'markdown',
     opts = {
