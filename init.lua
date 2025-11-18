@@ -699,8 +699,9 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       }
 
       servers.qmlls = {}
+      servers.pyright = {}
 
-      servers.angularls = {}
+      -- servers.angularls = {}
       servers.emmet_language_server = {}
       servers.vue_ls = {}
       servers.vtsls = {
@@ -731,7 +732,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         },
       }
 
-      servers.ruff = {}
+      -- servers.ruff = {}
 
       --[[ servers.ts_ls = {
         filetypes = { 'typescript', 'typescriptreact' },

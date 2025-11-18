@@ -170,12 +170,14 @@
               custom-roslyn-command
               csharpier
               # python
+              pyright
               ruff
               # c++
               libcxx
               clang-tools
               # qml quickshell shit
               kdePackages.qtdeclarative
+
             ];
             kickstart-debug = [
               delve
