@@ -241,7 +241,7 @@
               ts-autotag-nvim
               live-share-nvim
               roslyn-nvim
-
+              barbar-nvim
               # This is for if you only want some of the grammars
               # (nvim-treesitter.withPlugins (
               #   plugins: with plugins; [

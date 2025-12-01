@@ -13,7 +13,7 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '<A-n>', ':Neotree float toggle<CR>', { desc = 'NeoTree reveal' } },
+    { '<A-n>', ':Neotree reveal float toggle<CR>', { desc = 'NeoTree reveal' } },
   },
   opts = {
     filesystem = {
