@@ -161,6 +161,8 @@
               emmet-language-server
               vtsls
               tailwindcss-language-server
+              eslint_d
+              vscode-langservers-extracted
               # nix
               nix-doc
               nixd
