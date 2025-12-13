@@ -704,7 +704,11 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       -- servers.angularls = {}
       servers.emmet_language_server = {}
       servers.vue_ls = {}
-      servers.eslint = {}
+      servers.eslint = {
+        settings = {
+          cmd = 'eslint_d',
+        },
+      }
       servers.vtsls = {
         settings = {
           vtsls = {

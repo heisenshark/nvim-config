@@ -163,6 +163,7 @@
               tailwindcss-language-server
               eslint_d
               vscode-langservers-extracted
+              prettierd
               # nix
               nix-doc
               nixd
