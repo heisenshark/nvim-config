@@ -157,6 +157,7 @@
               stylua
               # js ts
               vue-language-server
+              astro-language-server
               angular-language-server
               emmet-language-server
               vtsls
@@ -180,7 +181,8 @@
               clang-tools
               # qml quickshell shit
               kdePackages.qtdeclarative
-
+              ocamlPackages.ocaml-lsp
+              nimlangserver
             ];
             kickstart-debug = [
               delve

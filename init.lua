@@ -679,6 +679,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         enableForWorkspaceTypeScriptVersions = true,
       }
 
+      servers.astro = {}
       servers.clangd = {
 
         capabilities = capabilities,
@@ -707,20 +708,32 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       servers.emmet_language_server = {}
       servers.vue_ls = {}
       servers.eslint = {
+        cmd = 'eslint_d',
         settings = {
           cmd = 'eslint_d',
         },
       }
-      servers.vtsls = {
-        settings = {
-          vtsls = {
-            tsserver = {
-              globalPlugins = { vue_plugin },
-            },
-          },
-        },
-        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+      servers.ocamlls = {
+        cmd = { 'ocamllsp' },
+
+        filetypes = { 'ocaml' },
       }
+
+      servers.nim_langserver = {
+        cmd = { 'nimlangserver' },
+      }
+
+      -- servers.vtsls = {
+      --   settings = {
+      --     vtsls = {
+      --       tsserver = {
+      --         globalPlugins = { vue_plugin },
+      --       },
+      --     },
+      --   },
+      --   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+      -- }
+      servers.ts_ls = {}
       servers.tailwindcss = {
         -- stylua: ignore
         filetypes={
