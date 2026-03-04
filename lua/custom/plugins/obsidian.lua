@@ -23,18 +23,19 @@ return {
     ft = 'markdown',
     opts = {
       legacy_commands = false,
-      attachments = {
-        img_folder = 'media/',
-      },
+      -- TODO: fix those
+      -- attachments = {
+      --   img_folder = 'media/',
+      -- },
       ui = {
         enable = false,
       },
       workspaces = {
         workspace,
       },
-      follow_url_func = function(url)
-        vim.fn.jobstart { 'xdg-open', url } -- linux
-      end,
+      -- follow_url_func = function(url)
+      --   vim.fn.jobstart { 'xdg-open', url } -- linux
+      -- end,
     },
   },
 }
