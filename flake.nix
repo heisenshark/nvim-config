@@ -183,6 +183,7 @@
               kdePackages.qtdeclarative
               ocamlPackages.ocaml-lsp
               nimlangserver
+              clojure-lsp
             ];
             kickstart-debug = [
               delve
@@ -435,7 +436,7 @@
             name = defaultPackageName;
             packages = [ defaultPackage ];
             inputsFrom = [ ];
-            shellHook = '''';
+            shellHook = "";
           };
         };
 

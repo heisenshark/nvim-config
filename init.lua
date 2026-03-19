@@ -679,6 +679,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         enableForWorkspaceTypeScriptVersions = true,
       }
 
+      servers.clojure_lsp = {}
       servers.astro = {}
       servers.clangd = {
 
@@ -734,6 +735,7 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       --   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
       -- }
       servers.ts_ls = {}
+      servers.raku_navigator = {}
       servers.tailwindcss = {
         -- stylua: ignore
         filetypes={
