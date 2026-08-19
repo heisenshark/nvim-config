@@ -79,9 +79,11 @@
       # will not apply to module imports
       # as that will have your system values
       extra_pkg_config = {
-        # allowUnfree = true;
+        allowUnfree = true;
       };
-      pkgs-stable = import nixpkgs-stable { inherit system; };
+      pkgs-stable = import nixpkgs-stable {
+        inherit system;
+      };
       # management of the system variable is one of the harder parts of using flakes.
 
       # so I have done it here in an interesting way to keep it out of the way.
