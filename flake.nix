@@ -170,6 +170,7 @@
               # nix
               nix-doc
               nixd
+              biome
               nixfmt
               # c#
               netcoredbg
