@@ -43,6 +43,11 @@
       flake = false;
     };
 
+    "plugins-harnt-nvim" = {
+      url = "github:PieterPel/harnt.nvim";
+      flake = false;
+    };
+
     # neovim-nightly-overlay = {
     #   url = "github:nix-community/neovim-nightly-overlay";
     # };
@@ -172,6 +177,7 @@
               nixd
               biome
               nixfmt
+              netcat-openbsd
               # c#
               netcoredbg
               custom-roslyn-command
@@ -199,6 +205,7 @@
           # This is for plugins that will load at startup without using packadd:
           startupPlugins = with pkgs.vimPlugins; {
             general = [
+              pkgs.neovimPlugins.harnt-nvim
               pkgs.neovimPlugins.everforest-nvim
               pkgs.neovimPlugins.instant-nvim
               pkgs.neovimPlugins.ror-nvim

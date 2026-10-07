@@ -63,6 +63,22 @@
         "type": "github"
       }
     },
+    "plugins-harnt-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788703683,
+        "narHash": "sha256-FQ9jAGft/8HfUMN+c+5kRKFeDaICkTAKkIvjkpfVJCA=",
+        "owner": "PieterPel",
+        "repo": "harnt.nvim",
+        "rev": "da259aed1b91d7b7f0b25417f35875a1d74f87c8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "PieterPel",
+        "repo": "harnt.nvim",
+        "type": "github"
+      }
+    },
     "plugins-instant-nvim": {
       "flake": false,
       "locked": {
@@ -117,6 +133,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "plugins-everforest-nvim": "plugins-everforest-nvim",
+        "plugins-harnt-nvim": "plugins-harnt-nvim",
         "plugins-instant-nvim": "plugins-instant-nvim",
         "plugins-nvim-colorizer-lua": "plugins-nvim-colorizer-lua",
         "plugins-ror-nvim": "plugins-ror-nvim"
